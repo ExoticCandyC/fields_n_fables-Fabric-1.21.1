@@ -1,0 +1,40 @@
+{
+	"schemaVersion": 1,
+	"id": "fields_n_fables",
+	"version": "${version}",
+	"name": "Fields & Fables",
+	"description": "A mod inspired by Stardew Valley and Don't Starve Together. Adding a new game style to minecraft.",
+	"authors": [
+		"ExoticCandy"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "GNU GPL v3.0",
+	"icon": "assets/fields_n_fables/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"net.exoticcandy.fields_n_fables.FieldsFables"
+		],
+		"fabric-datagen": [
+			"net.exoticcandy.fields_n_fables.FieldsFablesDataGenerator"
+		],
+		"client": [
+			"net.exoticcandy.fields_n_fables.FieldsFablesClient"
+		]
+	},
+	"mixins": [
+		"fields_n_fables.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.16.10",
+		"minecraft": "~1.21.1",
+		"java": ">=21",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
