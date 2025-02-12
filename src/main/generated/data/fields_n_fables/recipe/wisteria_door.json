@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "T": {
+      "item": "fields_n_fables:wisteria_planks"
+    }
+  },
+  "pattern": [
+    "TT",
+    "TT",
+    "TT"
+  ],
+  "result": {
+    "count": 3,
+    "id": "fields_n_fables:wisteria_door"
+  }
+}

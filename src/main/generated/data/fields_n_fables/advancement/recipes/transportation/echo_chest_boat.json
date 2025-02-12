@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_c:chests/wooden": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#c:chests/wooden"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_echo_boat": {
+      "conditions": {
+        "items": [
+          {
+            "items": "fields_n_fables:echo_boat"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "fields_n_fables:echo_chest_boat"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_echo_boat",
+      "has_c:chests/wooden"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "fields_n_fables:echo_chest_boat"
+    ]
+  }
+}

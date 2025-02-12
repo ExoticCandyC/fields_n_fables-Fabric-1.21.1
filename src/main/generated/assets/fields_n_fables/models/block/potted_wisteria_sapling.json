@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/flower_pot_cross",
+  "textures": {
+    "plant": "fields_n_fables:block/wisteria_sapling"
+  }
+}

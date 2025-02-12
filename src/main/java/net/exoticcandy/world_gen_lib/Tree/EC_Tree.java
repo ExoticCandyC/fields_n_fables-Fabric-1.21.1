@@ -18,6 +18,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.WoodTypeBuilder;
+import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.minecraft.block.*;
@@ -226,6 +227,9 @@ public class EC_Tree
             FlammableBlockRegistry.getDefaultInstance().add(FENCE        , 5 , 20);
             FlammableBlockRegistry.getDefaultInstance().add(FENCE_GATE   , 5 , 20);
         }
+
+        CompostingChanceRegistry.INSTANCE.add(SAPLING, 0.3f);
+        CompostingChanceRegistry.INSTANCE.add(LEAVES , 0.3f);
     }
 
     public void loadClient()
@@ -456,7 +460,7 @@ public class EC_Tree
         this.flammableLeaves   = true;
         this.flammableWood     = true;
         registerTree();
-        net.exoticcandy.world_gen_lib.Tree.list.Trees.trees.add(this);
+        //net.exoticcandy.world_gen_lib.Tree.list.Trees.trees.add(this);
     }
 
     public EC_Tree(String MOD_ID, String tree_ID_Suffix, String tree_Name, SaplingGenerator Sapling_Generator, MapColor LogColor, MapColor PlankColor, MapColor LeavesColor, boolean flammableLeaves, boolean flammableWood)
@@ -471,7 +475,7 @@ public class EC_Tree
         this.flammableLeaves   = flammableLeaves;
         this.flammableWood     = flammableWood;
         registerTree();
-        net.exoticcandy.world_gen_lib.Tree.list.Trees.trees.add(this);
+        //net.exoticcandy.world_gen_lib.Tree.list.Trees.trees.add(this);
     }
 }
 

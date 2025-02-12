@@ -25,7 +25,8 @@ public class FFEnglishLanguageProvider extends FabricLanguageProvider {
         super(dataOutput, registryLookup);
     }
 
-    private static void addText(@NotNull TranslationBuilder builder, @NotNull Text text, @NotNull String value) {
+    private static void addText(@NotNull TranslationBuilder builder, @NotNull Text text, @NotNull String value)
+    {
         if (text.getContent() instanceof TranslatableTextContent translatableTextContent) {
             builder.add(translatableTextContent.getKey(), value);
         } else {
@@ -34,31 +35,11 @@ public class FFEnglishLanguageProvider extends FabricLanguageProvider {
     }
 
     @Override
-    public void generateTranslations(RegistryWrapper.WrapperLookup registryLookup, TranslationBuilder translationBuilder) {
+    public void generateTranslations(RegistryWrapper.WrapperLookup registryLookup, TranslationBuilder translationBuilder)
+    {
         for(EC_Tree tree : Trees.trees)
         {
             tree.datagen_language(translationBuilder);
         }
-
-        translationBuilder.add(BlockInit.ECHO_LOG, "Echo Log");
-        translationBuilder.add(BlockInit.STRIPPED_ECHO_LOG, "Stripped Echo Log");
-        translationBuilder.add(BlockInit.ECHO_WOOD, "Echo Wood");
-        translationBuilder.add(BlockInit.STRIPPED_ECHO_WOOD, "Stripped Echo Wood");
-        translationBuilder.add(BlockInit.ECHO_LEAVES, "Echo Leaves");
-        translationBuilder.add(BlockInit.ECHO_SAPLING, "Echo Sapling");
-        translationBuilder.add(BlockInit.ECHO_PLANKS, "Echo Planks");
-        translationBuilder.add(BlockInit.ECHO_SLAB, "Echo Slab");
-        translationBuilder.add(BlockInit.ECHO_STAIRS, "Echo Stairs");
-        translationBuilder.add(BlockInit.ECHO_FENCE, "Echo Fence");
-        translationBuilder.add(BlockInit.ECHO_FENCE_GATE, "Echo Fence Gate");
-        translationBuilder.add(BlockInit.ECHO_DOOR, "Echo Door");
-        translationBuilder.add(BlockInit.ECHO_TRAPDOOR, "Echo Trapdoor");
-        translationBuilder.add(BlockInit.ECHO_BUTTON, "Echo Button");
-        translationBuilder.add(BlockInit.ECHO_PRESSURE_PLATE, "Echo Pressure Plate");
-        translationBuilder.add(BlockInit.ECHO_SIGN_ITEM, "Echo Sign");
-        translationBuilder.add(BlockInit.ECHO_HANGING_SIGN_ITEM, "Echo Hanging Sign");
-        translationBuilder.add(BlockInit.ECHO_BOAT, "Echo Boat");
-        translationBuilder.add(BlockInit.ECHO_CHEST_BOAT, "Echo Chest Boat");
-        translationBuilder.add(TagList.Items.ECHO_LOGS, "Echo Logs");
     }
 }

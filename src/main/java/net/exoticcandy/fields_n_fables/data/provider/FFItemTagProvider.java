@@ -41,59 +41,5 @@ public class FFItemTagProvider extends FabricTagProvider<Item> {
             getOrCreateTagBuilder(ItemTags.BOATS).add(tree.BOAT);
             getOrCreateTagBuilder(ItemTags.CHEST_BOATS).add(tree.CHEST_BOAT);
         }
-
-        getOrCreateTagBuilder(TagList.Items.ECHO_LOGS)
-                .add(BlockInit.ECHO_LOG.asItem())
-                .add(BlockInit.ECHO_WOOD.asItem())
-                .add(BlockInit.STRIPPED_ECHO_LOG.asItem())
-                .add(BlockInit.STRIPPED_ECHO_WOOD.asItem());
-
-        getOrCreateTagBuilder(ItemTags.LOGS_THAT_BURN)
-                .addTag(TagList.Items.ECHO_LOGS);
-
-        getOrCreateTagBuilder(ItemTags.LEAVES)
-                .add(BlockInit.ECHO_LEAVES.asItem());
-
-        getOrCreateTagBuilder(ItemTags.SAPLINGS)
-                .add(BlockInit.ECHO_SAPLING.asItem());
-
-        getOrCreateTagBuilder(ItemTags.PLANKS)
-                .add(BlockInit.ECHO_PLANKS.asItem());
-
-        getOrCreateTagBuilder(ItemTags.WOODEN_DOORS)
-                .add(BlockInit.ECHO_DOOR.asItem());
-
-        getOrCreateTagBuilder(ItemTags.WOODEN_FENCES)
-                .add(BlockInit.ECHO_FENCE.asItem());
-
-        getOrCreateTagBuilder(ItemTags.FENCE_GATES)
-                .add(BlockInit.ECHO_FENCE_GATE.asItem());
-
-        getOrCreateTagBuilder(ItemTags.WOODEN_STAIRS)
-                .add(BlockInit.ECHO_STAIRS.asItem());
-
-        getOrCreateTagBuilder(ItemTags.WOODEN_SLABS)
-                .add(BlockInit.ECHO_SLAB.asItem());
-
-        getOrCreateTagBuilder(ItemTags.WOODEN_PRESSURE_PLATES)
-                .add(BlockInit.ECHO_PRESSURE_PLATE.asItem());
-
-        getOrCreateTagBuilder(ItemTags.WOODEN_TRAPDOORS)
-                .add(BlockInit.ECHO_TRAPDOOR.asItem());
-
-        getOrCreateTagBuilder(ItemTags.WOODEN_BUTTONS)
-                .add(BlockInit.ECHO_BUTTON.asItem());
-
-        getOrCreateTagBuilder(ItemTags.SIGNS)
-                .add(BlockInit.ECHO_SIGN_ITEM);
-
-        getOrCreateTagBuilder(ItemTags.HANGING_SIGNS)
-                .add(BlockInit.ECHO_HANGING_SIGN_ITEM);
-
-        getOrCreateTagBuilder(ItemTags.BOATS)
-                .add(BlockInit.ECHO_BOAT);
-
-        getOrCreateTagBuilder(ItemTags.CHEST_BOATS)
-                .add(BlockInit.ECHO_CHEST_BOAT);
     }
 }

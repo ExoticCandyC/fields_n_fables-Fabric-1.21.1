@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_top_left_open",
+  "textures": {
+    "bottom": "fields_n_fables:block/wisteria_door_bottom",
+    "top": "fields_n_fables:block/wisteria_door_top"
+  }
+}

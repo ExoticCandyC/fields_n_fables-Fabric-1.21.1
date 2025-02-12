@@ -1,6 +1,8 @@
 package net.exoticcandy.world_gen_lib.Tree.list;
 
 import net.exoticcandy.world_gen_lib.Tree.EC_Tree;
+import net.minecraft.block.MapColor;
+import net.minecraft.block.SaplingGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +10,16 @@ import java.util.List;
 public class Trees
 {
     public static List<EC_Tree> trees = new ArrayList<>();
+
+    public static void register_new_tree(String MOD_ID, String tree_ID_Suffix, String tree_Name, SaplingGenerator Sapling_Generator, MapColor LogColor, MapColor PlankColor, MapColor LeavesColor)
+    {
+        trees.add(new EC_Tree(MOD_ID, tree_ID_Suffix, tree_Name, Sapling_Generator, LogColor, PlankColor, LeavesColor));
+    }
+
+    public static void register_new_tree(String MOD_ID, String tree_ID_Suffix, String tree_Name, SaplingGenerator Sapling_Generator, MapColor LogColor, MapColor PlankColor, MapColor LeavesColor, boolean flammableLeaves, boolean flammableWood)
+    {
+        trees.add(new EC_Tree(MOD_ID, tree_ID_Suffix, tree_Name, Sapling_Generator, LogColor, PlankColor, LeavesColor, flammableLeaves, flammableWood));
+    }
 
     /*
         // Loot Table Provider Sample
