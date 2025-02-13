@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "fields_n_fables:block/echo_sapling"
+  }
+}

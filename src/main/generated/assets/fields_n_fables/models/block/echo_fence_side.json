@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/fence_side",
+  "textures": {
+    "texture": "fields_n_fables:block/echo_planks"
+  }
+}

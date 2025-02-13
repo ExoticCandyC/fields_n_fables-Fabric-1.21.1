@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "fields_n_fables:block/echo_wood",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "fields_n_fables:block/echo_wood"
+    },
+    "axis=z": {
+      "model": "fields_n_fables:block/echo_wood",
+      "x": 90
+    }
+  }
+}

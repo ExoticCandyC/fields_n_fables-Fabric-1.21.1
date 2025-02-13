@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "fields_n_fables:block/echo_slab"
+    },
+    "type=double": {
+      "model": "fields_n_fables:block/echo_planks"
+    },
+    "type=top": {
+      "model": "fields_n_fables:block/echo_slab_top"
+    }
+  }
+}

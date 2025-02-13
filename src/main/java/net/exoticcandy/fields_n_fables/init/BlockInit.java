@@ -4,15 +4,18 @@ import com.mojang.serialization.MapCodec;
 import net.exoticcandy.fields_n_fables.FieldsFables;
 import net.exoticcandy.world_gen_lib.FlowerPetals.EC_Petal;
 import net.exoticcandy.world_gen_lib.FlowerPetals.list.Petals;
+import net.exoticcandy.world_gen_lib.Sign.EC_SignBlock;
+import net.exoticcandy.world_gen_lib.Sign.EC_WallHangingSignBlock;
+import net.exoticcandy.world_gen_lib.Sign.EC_WallSignBlock;
+import net.exoticcandy.world_gen_lib.Sign.EC_HangingSignBlock;
 import net.exoticcandy.world_gen_lib.Tree.EC_Tree;
 import net.exoticcandy.world_gen_lib.Tree.list.Trees;
 import net.exoticcandy.world_gen_lib.Vine.EC_Vine;
 import net.exoticcandy.world_gen_lib.Vine.list.Vines;
 import net.minecraft.block.*;
 import net.minecraft.block.MapColor;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
+import net.minecraft.block.enums.NoteBlockInstrument;
+import net.minecraft.item.*;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.particle.SimpleParticleType;
@@ -108,6 +111,29 @@ public class BlockInit {
     //public static final SimpleParticleType WISTERIA_LEAVES = FabricParticleTypes.simple();
 
     // Register our custom particle type in the mod initializer.
+
+    public static final Identifier                    SIGN_TEXTURE;
+    public static final Identifier                    HANGING_SIGN_TEXTURE;
+    public static final Identifier                    HANGING_GUI_SIGN_TEXTURE;
+    public static final EC_SignBlock                  SIGN;
+    public static final EC_WallSignBlock              WALL_SIGN;
+    public static final EC_HangingSignBlock           HANGING_SIGN;
+    public static final EC_WallHangingSignBlock       WALL_HANGING_SIGN;
+    public static final SignItem                      SIGN_ITEM;
+    public static final HangingSignItem               HANGING_SIGN_ITEM;
+    public static final String tree_ID_Suffix = "test";
+    static
+    {
+        SIGN_TEXTURE             = FieldsFables.id("entity/signs/" + tree_ID_Suffix);
+        HANGING_SIGN_TEXTURE     = FieldsFables.id("entity/signs/hanging/" + tree_ID_Suffix);
+        HANGING_GUI_SIGN_TEXTURE = FieldsFables.id("textures/gui/hanging_signs/" + tree_ID_Suffix);
+        SIGN = register(tree_ID_Suffix + "_sign", new EC_SignBlock(SIGN_TEXTURE, AbstractBlock.Settings.create().mapColor(Blocks.OAK_PLANKS.getDefaultMapColor()).solid().instrument(NoteBlockInstrument.BASS).noCollision().strength(1.0F).burnable()));
+        WALL_SIGN = register(tree_ID_Suffix + "_wall_sign", new EC_WallSignBlock(SIGN_TEXTURE, AbstractBlock.Settings.create().mapColor(Blocks.OAK_PLANKS.getDefaultMapColor()).solid().instrument(NoteBlockInstrument.BASS).noCollision().strength(1.0F).burnable()));
+        HANGING_SIGN = register(tree_ID_Suffix + "_hanging_sign", new EC_HangingSignBlock(HANGING_SIGN_TEXTURE, HANGING_GUI_SIGN_TEXTURE, AbstractBlock.Settings.create().mapColor(Blocks.OAK_PLANKS.getDefaultMapColor()).solid().instrument(NoteBlockInstrument.BASS).noCollision().strength(1.0F).burnable()));
+        WALL_HANGING_SIGN = register(tree_ID_Suffix + "_wall_hanging_sign", new EC_WallHangingSignBlock(HANGING_SIGN_TEXTURE, HANGING_GUI_SIGN_TEXTURE, AbstractBlock.Settings.create().mapColor(Blocks.OAK_PLANKS.getDefaultMapColor()).solid().instrument(NoteBlockInstrument.BASS).noCollision().strength(1.0F).burnable()));
+        SIGN_ITEM = register_item(tree_ID_Suffix + "_sign", new SignItem(new Item.Settings().maxCount(16), SIGN, WALL_SIGN));
+        HANGING_SIGN_ITEM = register_item(tree_ID_Suffix + "_hanging_sign", new HangingSignItem(HANGING_SIGN, WALL_HANGING_SIGN, new Item.Settings().maxCount(16)));
+    }
 
     public static void load_generic()
     {

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/flowerbed_1",
+  "textures": {
+    "flowerbed": "fields_n_fables:block/wisteria_petals",
+    "stem": "fields_n_fables:block/wisteria_petals_stem"
+  }
+}

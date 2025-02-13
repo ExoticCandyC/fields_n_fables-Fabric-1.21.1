@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/button_pressed",
+  "textures": {
+    "texture": "fields_n_fables:block/echo_planks"
+  }
+}
