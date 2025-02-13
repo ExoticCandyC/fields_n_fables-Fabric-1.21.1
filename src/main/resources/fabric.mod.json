@@ -23,6 +23,9 @@
 		],
 		"client": [
 			"net.exoticcandy.fields_n_fables.FieldsFablesClient"
+		],
+		"terrablender": [
+			"net.exoticcandy.fields_n_fables.FieldsFablesTerraBlender"
 		]
 	},
 	"mixins": [

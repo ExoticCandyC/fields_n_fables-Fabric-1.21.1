@@ -10,6 +10,7 @@ import net.exoticcandy.world_gen_lib.Vine.EC_Vine;
 import net.exoticcandy.world_gen_lib.Vine.list.Vines;
 import net.minecraft.block.*;
 import net.minecraft.block.MapColor;
+import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.item.*;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
@@ -100,6 +101,8 @@ public class BlockInit {
     {
         return (EC_SimpleParticleType)Registry.register(Registries.PARTICLE_TYPE, FieldsFables.id(name), new EC_SimpleParticleType(alwaysShow));
     }
+
+    public static final Block MOSS_BLOCK = registerWithItem("moss_block", new MossBlock(AbstractBlock.Settings.create().mapColor(MapColor.GREEN).strength(0.1F).sounds(BlockSoundGroup.MOSS_BLOCK).pistonBehavior(PistonBehavior.DESTROY)));
 
     public static void load_generic()
     {
