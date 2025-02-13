@@ -19,6 +19,7 @@ public class FieldsFables implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		WisteriaVineDecorator.load();
+
 		//LOGGER.info("Hello Fabric world!");
 		BackPort_1_21_5.load_generic();
 		BlockInit.load_generic();

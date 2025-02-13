@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/flowerbed_3",
+  "textures": {
+    "flowerbed": "minecraft:block/leaf_litter",
+    "stem": "minecraft:block/leaf_litter_stem"
+  }
+}

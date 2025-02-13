@@ -1,7 +1,6 @@
-package net.exoticcandy.world_gen_lib.FlowerPetals;
+package net.exoticcandy.world_gen_lib.Tree;
 
 import com.mojang.serialization.MapCodec;
-import net.exoticcandy.fields_n_fables.init.BlockInit;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.LeavesBlock;

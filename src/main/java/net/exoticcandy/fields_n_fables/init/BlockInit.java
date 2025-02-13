@@ -115,7 +115,7 @@ public class BlockInit {
                         Optional.empty()),
                 MapColor.GRAY, MapColor.PURPLE, MapColor.PALE_PURPLE);
         Vines.register_new_vine(FieldsFables.MOD_ID, "wisteria_vines", "Wisteria Flowers", Direction.DOWN, true, true, MapColor.PURPLE, BlockSoundGroup.CHERRY_LEAVES, 7);
-        Petals.register_new_petal(FieldsFables.MOD_ID, "wisteria_petals", "Wisteria Petals", true, false, Items.PURPLE_DYE, MapColor.PURPLE, BlockSoundGroup.PINK_PETALS, 0);
+        Petals.register_new_petal(FieldsFables.MOD_ID, "wisteria_petals", "Wisteria Petals", true, false, false, Items.PURPLE_DYE, MapColor.PURPLE, BlockSoundGroup.PINK_PETALS, 0);
 
         Trees.register_new_tree(FieldsFables.MOD_ID, "echo"    , "Echo"    , false, false,
                 new SaplingGenerator("echo", Optional.empty(),

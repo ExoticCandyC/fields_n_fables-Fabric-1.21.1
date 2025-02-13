@@ -23,11 +23,11 @@ public class BackPort_1_21_5
                         Optional.empty()),
                 MapColor.TERRACOTTA_LIGHT_GRAY, MapColor.LIGHT_GRAY, MapColor.LIGHT_GRAY);
         Vines.register_new_vine("minecraft", "pale_hanging_moss", "Pale Hanging Moss", Direction.DOWN, true, false, MapColor.LIGHT_GRAY, BlockSoundGroup.MOSS_BLOCK, 0);
-        Petals.register_new_petal("minecraft", "wildflowers", "Wild Flowers", true, false, Items.YELLOW_DYE, MapColor.YELLOW, BlockSoundGroup.PINK_PETALS, 0);
-
+        Petals.register_new_petal("minecraft", "wildflowers", "Wild Flowers", true, false, false, Items.YELLOW_DYE, MapColor.YELLOW, BlockSoundGroup.PINK_PETALS, 0);
+        Petals.register_new_petal("minecraft", "leaf_litter", "Leaf Litter", true, true, true, Items.BROWN_DYE, MapColor.BROWN, BlockSoundGroup.BIG_DRIPLEAF, 0);
+        /* Firefly Bushes */
         /*
         Fix ID: pale_hanging_moss_tip
-        make the segment count for addition of leaf litter
          */
     }
 
