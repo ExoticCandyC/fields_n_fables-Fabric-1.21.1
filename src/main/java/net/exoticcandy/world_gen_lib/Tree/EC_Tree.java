@@ -115,12 +115,6 @@ public class EC_Tree
     public TagKey<Block> BLOCK_TAG_LIST_LOGS;
     public TagKey<Item>  ITEM_TAG_LIST_LOGS;
 
-    /* *******************  Helper Functions  ******************* */
-    public static RegistryKey<ConfiguredFeature<?, ?>> ConfiguredFeatureRegisterKey(String name)
-    {
-        return RegistryKey.of(RegistryKeys.CONFIGURED_FEATURE, FieldsFables.id(name));
-    }
-
     /* ******************  Registry Functions  ****************** */
     private Identifier id(String path)
     {
@@ -168,6 +162,12 @@ public class EC_Tree
     private static TerraformBoatType register_boatType(RegistryKey<TerraformBoatType> key, TerraformBoatType type)
     {
         return Registry.register(TerraformBoatTypeRegistry.INSTANCE, key, type);
+    }
+
+    /* *******************  Helper Functions  ******************* */
+    public static RegistryKey<ConfiguredFeature<?, ?>> ConfiguredFeatureRegisterKey(String mod_id, String name)
+    {
+        return RegistryKey.of(RegistryKeys.CONFIGURED_FEATURE, Identifier.of(mod_id, name));
     }
 
     /* ******************  Block Construction  ****************** */
@@ -222,9 +222,9 @@ public class EC_Tree
             POTTED_SAPLING = register("potted_" + tree_ID_Suffix + "_sapling", createFlowerPot(SAPLING));
         }
 
-        SIGN_TEXTURE             = FieldsFables.id("entity/signs/" + tree_ID_Suffix);
-        HANGING_SIGN_TEXTURE     = FieldsFables.id("entity/signs/hanging/" + tree_ID_Suffix);
-        HANGING_GUI_SIGN_TEXTURE = FieldsFables.id("textures/gui/hanging_signs/" + tree_ID_Suffix);
+        SIGN_TEXTURE             = id("entity/signs/" + tree_ID_Suffix);
+        HANGING_SIGN_TEXTURE     = id("entity/signs/hanging/" + tree_ID_Suffix);
+        HANGING_GUI_SIGN_TEXTURE = id("textures/gui/hanging_signs/" + tree_ID_Suffix);
         SIGN                     = register(tree_ID_Suffix + "_sign", new TerraformSignBlock(SIGN_TEXTURE, AbstractBlock.Settings.create().mapColor(PLANKS.getDefaultMapColor()).solid().instrument(NoteBlockInstrument.BASS).noCollision().strength(1.0F).burnable()));
         WALL_SIGN                = register(tree_ID_Suffix + "_wall_sign", new TerraformWallSignBlock(SIGN_TEXTURE, AbstractBlock.Settings.create().mapColor(PLANKS.getDefaultMapColor()).solid().instrument(NoteBlockInstrument.BASS).noCollision().strength(1.0F).burnable()));
         HANGING_SIGN             = register(tree_ID_Suffix + "_hanging_sign", new TerraformHangingSignBlock(HANGING_SIGN_TEXTURE, HANGING_GUI_SIGN_TEXTURE, AbstractBlock.Settings.create().mapColor(PLANKS.getDefaultMapColor()).solid().instrument(NoteBlockInstrument.BASS).noCollision().strength(1.0F).burnable()));
@@ -232,8 +232,8 @@ public class EC_Tree
         SIGN_ITEM                = register_item(tree_ID_Suffix + "_sign", new SignItem(new Item.Settings().maxCount(16), SIGN, WALL_SIGN));
         HANGING_SIGN_ITEM        = register_item(tree_ID_Suffix + "_hanging_sign", new HangingSignItem(HANGING_SIGN, WALL_HANGING_SIGN, new Item.Settings().maxCount(16)));
 
-        BOAT_ID       = FieldsFables.id(tree_ID_Suffix + "_boat");
-        CHEST_BOAT_ID = FieldsFables.id(tree_ID_Suffix + "_chest_boat");
+        BOAT_ID       = id(tree_ID_Suffix + "_boat");
+        CHEST_BOAT_ID = id(tree_ID_Suffix + "_chest_boat");
         BOAT_KEY      = TerraformBoatTypeRegistry.createKey(BOAT_ID);
         BOAT          = TerraformBoatItemHelper.registerBoatItem(BOAT_ID, BOAT_KEY, false);
         CHEST_BOAT    = TerraformBoatItemHelper.registerBoatItem(CHEST_BOAT_ID, BOAT_KEY, true);

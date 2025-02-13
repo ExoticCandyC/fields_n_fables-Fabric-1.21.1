@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "T": {
+      "item": "minecraft:pale_oak_planks"
+    }
+  },
+  "pattern": [
+    "TT"
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:pale_oak_pressure_plate"
+  }
+}

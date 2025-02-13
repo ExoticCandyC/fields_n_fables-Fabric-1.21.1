@@ -1,5 +1,9 @@
 {
   "values": [
+    "minecraft:pale_oak_log",
+    "minecraft:stripped_pale_oak_log",
+    "minecraft:pale_oak_wood",
+    "minecraft:stripped_pale_oak_wood",
     "fields_n_fables:wisteria_log",
     "fields_n_fables:stripped_wisteria_log",
     "fields_n_fables:wisteria_wood",

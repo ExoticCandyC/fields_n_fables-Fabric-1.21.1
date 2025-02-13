@@ -27,8 +27,7 @@
 	},
 	"mixins": [
 		"fields_n_fables.mixins.json",
-		"mixins.ec-signs.json",
-		"mixins.ec-boats.json"
+		"mixins.ec-signs.json"
 	],
 	"depends": {
 		"fabricloader": ">=0.16.10",

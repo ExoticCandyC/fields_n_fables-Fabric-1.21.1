@@ -4,17 +4,12 @@ import com.mojang.serialization.MapCodec;
 import net.exoticcandy.fields_n_fables.FieldsFables;
 import net.exoticcandy.world_gen_lib.FlowerPetals.EC_Petal;
 import net.exoticcandy.world_gen_lib.FlowerPetals.list.Petals;
-import net.exoticcandy.world_gen_lib.Sign.EC_SignBlock;
-import net.exoticcandy.world_gen_lib.Sign.EC_WallHangingSignBlock;
-import net.exoticcandy.world_gen_lib.Sign.EC_WallSignBlock;
-import net.exoticcandy.world_gen_lib.Sign.EC_HangingSignBlock;
 import net.exoticcandy.world_gen_lib.Tree.EC_Tree;
 import net.exoticcandy.world_gen_lib.Tree.list.Trees;
 import net.exoticcandy.world_gen_lib.Vine.EC_Vine;
 import net.exoticcandy.world_gen_lib.Vine.list.Vines;
 import net.minecraft.block.*;
 import net.minecraft.block.MapColor;
-import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.item.*;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
@@ -106,43 +101,14 @@ public class BlockInit {
         return (EC_SimpleParticleType)Registry.register(Registries.PARTICLE_TYPE, FieldsFables.id(name), new EC_SimpleParticleType(alwaysShow));
     }
 
-    //public static final SimpleParticleType WISTERIA_LEAVES = register_particle("wisteria_leaves", false);
-
-    //public static final SimpleParticleType WISTERIA_LEAVES = FabricParticleTypes.simple();
-
-    // Register our custom particle type in the mod initializer.
-
-    public static final Identifier                    SIGN_TEXTURE;
-    public static final Identifier                    HANGING_SIGN_TEXTURE;
-    public static final Identifier                    HANGING_GUI_SIGN_TEXTURE;
-    public static final EC_SignBlock                  SIGN;
-    public static final EC_WallSignBlock              WALL_SIGN;
-    public static final EC_HangingSignBlock           HANGING_SIGN;
-    public static final EC_WallHangingSignBlock       WALL_HANGING_SIGN;
-    public static final SignItem                      SIGN_ITEM;
-    public static final HangingSignItem               HANGING_SIGN_ITEM;
-    public static final String tree_ID_Suffix = "test";
-    static
-    {
-        SIGN_TEXTURE             = FieldsFables.id("entity/signs/" + tree_ID_Suffix);
-        HANGING_SIGN_TEXTURE     = FieldsFables.id("entity/signs/hanging/" + tree_ID_Suffix);
-        HANGING_GUI_SIGN_TEXTURE = FieldsFables.id("textures/gui/hanging_signs/" + tree_ID_Suffix);
-        SIGN = register(tree_ID_Suffix + "_sign", new EC_SignBlock(SIGN_TEXTURE, AbstractBlock.Settings.create().mapColor(Blocks.OAK_PLANKS.getDefaultMapColor()).solid().instrument(NoteBlockInstrument.BASS).noCollision().strength(1.0F).burnable()));
-        WALL_SIGN = register(tree_ID_Suffix + "_wall_sign", new EC_WallSignBlock(SIGN_TEXTURE, AbstractBlock.Settings.create().mapColor(Blocks.OAK_PLANKS.getDefaultMapColor()).solid().instrument(NoteBlockInstrument.BASS).noCollision().strength(1.0F).burnable()));
-        HANGING_SIGN = register(tree_ID_Suffix + "_hanging_sign", new EC_HangingSignBlock(HANGING_SIGN_TEXTURE, HANGING_GUI_SIGN_TEXTURE, AbstractBlock.Settings.create().mapColor(Blocks.OAK_PLANKS.getDefaultMapColor()).solid().instrument(NoteBlockInstrument.BASS).noCollision().strength(1.0F).burnable()));
-        WALL_HANGING_SIGN = register(tree_ID_Suffix + "_wall_hanging_sign", new EC_WallHangingSignBlock(HANGING_SIGN_TEXTURE, HANGING_GUI_SIGN_TEXTURE, AbstractBlock.Settings.create().mapColor(Blocks.OAK_PLANKS.getDefaultMapColor()).solid().instrument(NoteBlockInstrument.BASS).noCollision().strength(1.0F).burnable()));
-        SIGN_ITEM = register_item(tree_ID_Suffix + "_sign", new SignItem(new Item.Settings().maxCount(16), SIGN, WALL_SIGN));
-        HANGING_SIGN_ITEM = register_item(tree_ID_Suffix + "_hanging_sign", new HangingSignItem(HANGING_SIGN, WALL_HANGING_SIGN, new Item.Settings().maxCount(16)));
-    }
-
     public static void load_generic()
     {
         //Registry.register(Registries.PARTICLE_TYPE, FieldsFables.id("wisteria_leaves"), WISTERIA_LEAVES);
         /* Wisteria Tree and its decorations */
         Trees.register_new_tree(FieldsFables.MOD_ID, "wisteria", "Wisteria", true, true,
                 new SaplingGenerator("wisteria",
-                        Optional.of(EC_Tree.ConfiguredFeatureRegisterKey("mega_wisteria")),
-                        Optional.of(EC_Tree.ConfiguredFeatureRegisterKey("wisteria")),
+                        Optional.of(EC_Tree.ConfiguredFeatureRegisterKey(FieldsFables.MOD_ID, "mega_wisteria")),
+                        Optional.of(EC_Tree.ConfiguredFeatureRegisterKey(FieldsFables.MOD_ID,"wisteria")),
                         Optional.empty()),
                 MapColor.GRAY, MapColor.PURPLE, MapColor.PALE_PURPLE);
         Vines.register_new_vine(FieldsFables.MOD_ID, "wisteria_vines", "Wisteria Flowers", Direction.DOWN, true, true, MapColor.PURPLE, BlockSoundGroup.CHERRY_LEAVES, 7);
@@ -150,19 +116,11 @@ public class BlockInit {
 
         Trees.register_new_tree(FieldsFables.MOD_ID, "echo"    , "Echo"    , false, false,
                 new SaplingGenerator("echo", Optional.empty(),
-                        Optional.of(EC_Tree.ConfiguredFeatureRegisterKey("echo")),
-                        Optional.of(EC_Tree.ConfiguredFeatureRegisterKey("echo_bees_005"))),
+                        Optional.of(EC_Tree.ConfiguredFeatureRegisterKey(FieldsFables.MOD_ID,"echo")),
+                        Optional.of(EC_Tree.ConfiguredFeatureRegisterKey(FieldsFables.MOD_ID,"echo_bees_005"))),
                 MapColor.GRAY, MapColor.PURPLE, MapColor.PALE_PURPLE);
 
 
-
-        /*
-        Trees.register_new_tree("minecraft", "pale_oak"    , "Pale Oak"    , false,
-                new SaplingGenerator("pale_oak", Optional.empty(),
-                        Optional.of(EC_Tree.ConfiguredFeatureRegisterKey("echo")),
-                        Optional.empty()),
-                MapColor.TERRACOTTA_LIGHT_GRAY, MapColor.LIGHT_GRAY, MapColor.LIGHT_GRAY);
-        */
 
         for(EC_Tree  tree  :  Trees.trees )  tree.loadGeneric();
         for(EC_Vine  vines :  Vines.vines ) vines.loadGeneric();

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "T": {
+      "item": "minecraft:pale_oak_planks"
+    }
+  },
+  "pattern": [
+    "T T",
+    "TTT"
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:pale_oak_boat"
+  }
+}
