@@ -1,9 +1,11 @@
-// 1.21.1	2025-02-12T07:31:31.6319022	Fields & Fables/Tags for minecraft:block
+// 1.21.1	2025-02-13T00:14:24.1708191	Fields & Fables/Tags for minecraft:block
 8468daba3be3447b59739fb2c09b59b614d6b27a data\minecraft\tags\block\wooden_fences.json
+592ede796b5b97431354d0191cdab9db4f6cb5da data\minecraft\tags\block\replaceable_by_trees.json
 5a8ffe054b8c8d88acc8a760fce981635f704ad9 data\minecraft\tags\block\flower_pots.json
 32603cf4e63419568aaad43e70c7e4c822187df8 data\minecraft\tags\block\saplings.json
 9c6c2472bd041665c1e5aaa9405cb86ad376334c data\minecraft\tags\block\wooden_slabs.json
 8884571793c229c958d421d6bece0764c019a415 data\fields_n_fables\tags\block\echo_logs.json
+592ede796b5b97431354d0191cdab9db4f6cb5da data\minecraft\tags\block\replaceable.json
 c3b64a484261c98cad7d50dd4213d14b09d5fcfd data\minecraft\tags\block\wooden_stairs.json
 fbf06eda34f5eaa4f97373a93e8683900fd87c53 data\fields_n_fables\tags\block\wisteria_logs.json
 53d7f6f5871c8de9985edaf97b3ad80d75b8ada6 data\minecraft\tags\block\wooden_buttons.json
@@ -11,9 +13,11 @@ fbf06eda34f5eaa4f97373a93e8683900fd87c53 data\fields_n_fables\tags\block\wisteri
 27ee27f9e1be3fdd9d3927f6aef4b6248faa9531 data\minecraft\tags\block\standing_signs.json
 e7f8a0891df6add8b3cfd6e43d43ee475dee34ba data\minecraft\tags\block\wall_hanging_signs.json
 c7f9426c07aaa0a9055766904f2a82fd884151bc data\minecraft\tags\block\wooden_trapdoors.json
-11f9d1787adeff40c2241382e934b91080a3706d data\minecraft\tags\block\logs_that_burn.json
 eae2c60959354273ec33d215a844e8eac8801598 data\minecraft\tags\block\wooden_doors.json
+11f9d1787adeff40c2241382e934b91080a3706d data\minecraft\tags\block\logs_that_burn.json
 f4160fab38bae4c22abb9202010fbaeabc8a26e8 data\minecraft\tags\block\wall_signs.json
 3f1663d8aa2317bf847de24921c80c821232d441 data\minecraft\tags\block\leaves.json
 11f9d1787adeff40c2241382e934b91080a3706d data\minecraft\tags\block\logs.json
 510ff66878ae63e98bdd4ffbd5c3d8421d306689 data\minecraft\tags\block\ceiling_hanging_signs.json
+5101048f544a2b47a18b460418ff31b0ee823c3b data\minecraft\tags\block\flowers.json
+592ede796b5b97431354d0191cdab9db4f6cb5da data\minecraft\tags\block\climbable.json

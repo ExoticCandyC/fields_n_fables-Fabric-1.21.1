@@ -9,22 +9,26 @@ import com.terraformersmc.terraform.sign.api.block.TerraformSignBlock;
 import com.terraformersmc.terraform.sign.api.block.TerraformWallHangingSignBlock;
 import com.terraformersmc.terraform.sign.api.block.TerraformWallSignBlock;
 import net.exoticcandy.fields_n_fables.FieldsFables;
-import net.exoticcandy.fields_n_fables.data.provider.FFBlockTagProvider;
 import net.exoticcandy.fields_n_fables.init.BlockInit;
-import net.exoticcandy.fields_n_fables.list.TagList;
+import net.exoticcandy.world_gen_lib.FlowerPetals.FallingLeavesBlock;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.WoodTypeBuilder;
+import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.block.piston.PistonBehavior;
+import net.minecraft.client.particle.Particle;
+import net.minecraft.client.particle.ParticleFactory;
+import net.minecraft.client.particle.SpriteProvider;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.data.client.BlockStateModelGenerator;
 import net.minecraft.data.client.ItemModelGenerator;
 import net.minecraft.data.client.Models;
@@ -33,8 +37,8 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.HangingSignItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.SignItem;
+import net.minecraft.particle.SimpleParticleType;
 import net.minecraft.registry.*;
-import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.resource.featuretoggle.FeatureFlag;
 import net.minecraft.sound.BlockSoundGroup;
@@ -54,14 +58,14 @@ import net.minecraft.resource.featuretoggle.FeatureSet;
 import net.minecraft.data.family.BlockFamily;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.concurrent.CompletableFuture;
-
 public class EC_Tree
 {
     /* ********************  Class Features  ******************** */
     public String   MOD_ID;
     public String   tree_ID_Suffix;
     public String   tree_Name;
+    public boolean  flowerLeaves;
+    public boolean  fallingLeaves;
     public MapColor LogColor;
     public MapColor PlankColor;
     public MapColor LeavesColor;
@@ -88,6 +92,8 @@ public class EC_Tree
     public Block        LEAVES;
     public Block        SAPLING;
     public Block        POTTED_SAPLING;
+
+    public SimpleParticleType FALLING_LEAVES_PARTICLE;
 
     public Identifier                    SIGN_TEXTURE;
     public Identifier                    HANGING_SIGN_TEXTURE;
@@ -167,24 +173,54 @@ public class EC_Tree
     /* ******************  Block Construction  ****************** */
     private void registerTree()
     {
-        BLOCK_SET      = new BlockSetType(id(tree_ID_Suffix).toString(), true, true, true, BlockSetType.OAK.pressurePlateSensitivity(), BlockSoundGroup.WOOD, SoundEvents.BLOCK_WOODEN_DOOR_CLOSE, SoundEvents.BLOCK_WOODEN_DOOR_OPEN, SoundEvents.BLOCK_WOODEN_TRAPDOOR_CLOSE, SoundEvents.BLOCK_WOODEN_TRAPDOOR_OPEN, SoundEvents.BLOCK_WOODEN_PRESSURE_PLATE_CLICK_OFF, SoundEvents.BLOCK_WOODEN_PRESSURE_PLATE_CLICK_ON, SoundEvents.BLOCK_WOODEN_BUTTON_CLICK_OFF, SoundEvents.BLOCK_WOODEN_BUTTON_CLICK_ON);
-        WOODTYPE       = new WoodTypeBuilder().soundGroup(BlockSoundGroup.WOOD).hangingSignSoundGroup(BlockSoundGroup.HANGING_SIGN).fenceGateCloseSound(SoundEvents.BLOCK_FENCE_GATE_CLOSE).fenceGateOpenSound(SoundEvents.BLOCK_FENCE_GATE_OPEN).register(id(tree_ID_Suffix), BLOCK_SET);
-        LOG            = registerWithItem(tree_ID_Suffix + "_log", new PillarBlock(Blocks.OAK_LOG.getSettings().mapColor((state) -> state.get(PillarBlock.AXIS) == Direction.Axis.Y ? PlankColor : LogColor)));
-        WOOD           = registerWithItem(tree_ID_Suffix + "_wood", new PillarBlock(Blocks.OAK_WOOD.getSettings().mapColor(LogColor)));
-        STRIPPED_LOG   = registerWithItem("stripped_" + tree_ID_Suffix + "_log", new PillarBlock(Blocks.STRIPPED_OAK_LOG.getSettings().mapColor(PlankColor)));
-        STRIPPED_WOOD  = registerWithItem("stripped_" + tree_ID_Suffix + "_wood", new PillarBlock(Blocks.STRIPPED_OAK_WOOD.getSettings().mapColor(PlankColor)));
-        PLANKS         = registerWithItem(tree_ID_Suffix + "_planks", new Block(Blocks.OAK_PLANKS.getSettings().mapColor(PlankColor)));
-        STAIRS         = registerWithItem(tree_ID_Suffix + "_stairs", new StairsBlock(PLANKS.getDefaultState(), Blocks.OAK_STAIRS.getSettings().mapColor(PlankColor)));
-        SLAB           = registerWithItem(tree_ID_Suffix + "_slab", new SlabBlock(Blocks.OAK_SLAB.getSettings().mapColor(PlankColor)));
-        FENCE          = registerWithItem(tree_ID_Suffix + "_fence", new FenceBlock(Blocks.OAK_FENCE.getSettings().mapColor(PlankColor)));
-        FENCE_GATE     = registerWithItem(tree_ID_Suffix + "_fence_gate", new FenceGateBlock(WOODTYPE, Blocks.OAK_FENCE_GATE.getSettings().mapColor(PlankColor)));
-        DOOR           = registerWithItem(tree_ID_Suffix + "_door", new DoorBlock(BLOCK_SET, Blocks.OAK_DOOR.getSettings().mapColor(PlankColor)));
-        TRAPDOOR       = registerWithItem(tree_ID_Suffix + "_trapdoor", new TrapdoorBlock(BLOCK_SET, Blocks.OAK_TRAPDOOR.getSettings().mapColor(PlankColor)));
-        PRESSURE_PLATE = registerWithItem(tree_ID_Suffix + "_pressure_plate", new PressurePlateBlock(BLOCK_SET, Blocks.OAK_PRESSURE_PLATE.getSettings().mapColor(PlankColor)));
-        BUTTON         = registerWithItem(tree_ID_Suffix + "_button", new ButtonBlock(BLOCK_SET, 30, Blocks.OAK_BUTTON.getSettings()));
-        LEAVES         = registerWithItem(tree_ID_Suffix + "_leaves", new LeavesBlock(Blocks.OAK_LEAVES.getSettings().mapColor(LeavesColor)));
-        SAPLING        = registerWithItem(tree_ID_Suffix + "_sapling", new SaplingBlock(Sapling_Generator, Blocks.OAK_SAPLING.getSettings()));
-        POTTED_SAPLING = register("potted_" + tree_ID_Suffix + "_sapling", createFlowerPot(SAPLING));
+        if(this.flowerLeaves)
+        {
+            BLOCK_SET = new BlockSetType(id(tree_ID_Suffix).toString(), true, true, true, BlockSetType.CHERRY.pressurePlateSensitivity(), BlockSoundGroup.WOOD, SoundEvents.BLOCK_WOODEN_DOOR_CLOSE, SoundEvents.BLOCK_WOODEN_DOOR_OPEN, SoundEvents.BLOCK_WOODEN_TRAPDOOR_CLOSE, SoundEvents.BLOCK_WOODEN_TRAPDOOR_OPEN, SoundEvents.BLOCK_WOODEN_PRESSURE_PLATE_CLICK_OFF, SoundEvents.BLOCK_WOODEN_PRESSURE_PLATE_CLICK_ON, SoundEvents.BLOCK_WOODEN_BUTTON_CLICK_OFF, SoundEvents.BLOCK_WOODEN_BUTTON_CLICK_ON);
+            WOODTYPE = new WoodTypeBuilder().soundGroup(BlockSoundGroup.WOOD).hangingSignSoundGroup(BlockSoundGroup.HANGING_SIGN).fenceGateCloseSound(SoundEvents.BLOCK_FENCE_GATE_CLOSE).fenceGateOpenSound(SoundEvents.BLOCK_FENCE_GATE_OPEN).register(id(tree_ID_Suffix), BLOCK_SET);
+            LOG = registerWithItem(tree_ID_Suffix + "_log", new PillarBlock(Blocks.CHERRY_LOG.getSettings().mapColor((state) -> state.get(PillarBlock.AXIS) == Direction.Axis.Y ? PlankColor : LogColor)));
+            WOOD = registerWithItem(tree_ID_Suffix + "_wood", new PillarBlock(Blocks.CHERRY_WOOD.getSettings().mapColor(LogColor)));
+            STRIPPED_LOG = registerWithItem("stripped_" + tree_ID_Suffix + "_log", new PillarBlock(Blocks.STRIPPED_CHERRY_LOG.getSettings().mapColor(PlankColor)));
+            STRIPPED_WOOD = registerWithItem("stripped_" + tree_ID_Suffix + "_wood", new PillarBlock(Blocks.STRIPPED_CHERRY_WOOD.getSettings().mapColor(PlankColor)));
+            PLANKS = registerWithItem(tree_ID_Suffix + "_planks", new Block(Blocks.CHERRY_PLANKS.getSettings().mapColor(PlankColor)));
+            STAIRS = registerWithItem(tree_ID_Suffix + "_stairs", new StairsBlock(PLANKS.getDefaultState(), Blocks.CHERRY_STAIRS.getSettings().mapColor(PlankColor)));
+            SLAB = registerWithItem(tree_ID_Suffix + "_slab", new SlabBlock(Blocks.CHERRY_SLAB.getSettings().mapColor(PlankColor)));
+            FENCE = registerWithItem(tree_ID_Suffix + "_fence", new FenceBlock(Blocks.CHERRY_FENCE.getSettings().mapColor(PlankColor)));
+            FENCE_GATE = registerWithItem(tree_ID_Suffix + "_fence_gate", new FenceGateBlock(WOODTYPE, Blocks.CHERRY_FENCE_GATE.getSettings().mapColor(PlankColor)));
+            DOOR = registerWithItem(tree_ID_Suffix + "_door", new DoorBlock(BLOCK_SET, Blocks.CHERRY_DOOR.getSettings().mapColor(PlankColor)));
+            TRAPDOOR = registerWithItem(tree_ID_Suffix + "_trapdoor", new TrapdoorBlock(BLOCK_SET, Blocks.CHERRY_TRAPDOOR.getSettings().mapColor(PlankColor)));
+            PRESSURE_PLATE = registerWithItem(tree_ID_Suffix + "_pressure_plate", new PressurePlateBlock(BLOCK_SET, Blocks.CHERRY_PRESSURE_PLATE.getSettings().mapColor(PlankColor)));
+            BUTTON = registerWithItem(tree_ID_Suffix + "_button", new ButtonBlock(BLOCK_SET, 30, Blocks.CHERRY_BUTTON.getSettings()));
+            if(this.fallingLeaves)
+                LEAVES = registerWithItem(tree_ID_Suffix + "_leaves", new FallingLeavesBlock(FALLING_LEAVES_PARTICLE, Blocks.CHERRY_LEAVES.getSettings().mapColor(LeavesColor)));
+            else
+                LEAVES = registerWithItem(tree_ID_Suffix + "_leaves", new LeavesBlock(Blocks.CHERRY_LEAVES.getSettings().mapColor(LeavesColor)));
+            SAPLING = registerWithItem(tree_ID_Suffix + "_sapling", new SaplingBlock(Sapling_Generator, Blocks.CHERRY_SAPLING.getSettings()));
+            POTTED_SAPLING = register("potted_" + tree_ID_Suffix + "_sapling", createFlowerPot(SAPLING));
+        }
+        else
+        {
+            BLOCK_SET = new BlockSetType(id(tree_ID_Suffix).toString(), true, true, true, BlockSetType.OAK.pressurePlateSensitivity(), BlockSoundGroup.WOOD, SoundEvents.BLOCK_WOODEN_DOOR_CLOSE, SoundEvents.BLOCK_WOODEN_DOOR_OPEN, SoundEvents.BLOCK_WOODEN_TRAPDOOR_CLOSE, SoundEvents.BLOCK_WOODEN_TRAPDOOR_OPEN, SoundEvents.BLOCK_WOODEN_PRESSURE_PLATE_CLICK_OFF, SoundEvents.BLOCK_WOODEN_PRESSURE_PLATE_CLICK_ON, SoundEvents.BLOCK_WOODEN_BUTTON_CLICK_OFF, SoundEvents.BLOCK_WOODEN_BUTTON_CLICK_ON);
+            WOODTYPE = new WoodTypeBuilder().soundGroup(BlockSoundGroup.WOOD).hangingSignSoundGroup(BlockSoundGroup.HANGING_SIGN).fenceGateCloseSound(SoundEvents.BLOCK_FENCE_GATE_CLOSE).fenceGateOpenSound(SoundEvents.BLOCK_FENCE_GATE_OPEN).register(id(tree_ID_Suffix), BLOCK_SET);
+            LOG = registerWithItem(tree_ID_Suffix + "_log", new PillarBlock(Blocks.OAK_LOG.getSettings().mapColor((state) -> state.get(PillarBlock.AXIS) == Direction.Axis.Y ? PlankColor : LogColor)));
+            WOOD = registerWithItem(tree_ID_Suffix + "_wood", new PillarBlock(Blocks.OAK_WOOD.getSettings().mapColor(LogColor)));
+            STRIPPED_LOG = registerWithItem("stripped_" + tree_ID_Suffix + "_log", new PillarBlock(Blocks.STRIPPED_OAK_LOG.getSettings().mapColor(PlankColor)));
+            STRIPPED_WOOD = registerWithItem("stripped_" + tree_ID_Suffix + "_wood", new PillarBlock(Blocks.STRIPPED_OAK_WOOD.getSettings().mapColor(PlankColor)));
+            PLANKS = registerWithItem(tree_ID_Suffix + "_planks", new Block(Blocks.OAK_PLANKS.getSettings().mapColor(PlankColor)));
+            STAIRS = registerWithItem(tree_ID_Suffix + "_stairs", new StairsBlock(PLANKS.getDefaultState(), Blocks.OAK_STAIRS.getSettings().mapColor(PlankColor)));
+            SLAB = registerWithItem(tree_ID_Suffix + "_slab", new SlabBlock(Blocks.OAK_SLAB.getSettings().mapColor(PlankColor)));
+            FENCE = registerWithItem(tree_ID_Suffix + "_fence", new FenceBlock(Blocks.OAK_FENCE.getSettings().mapColor(PlankColor)));
+            FENCE_GATE = registerWithItem(tree_ID_Suffix + "_fence_gate", new FenceGateBlock(WOODTYPE, Blocks.OAK_FENCE_GATE.getSettings().mapColor(PlankColor)));
+            DOOR = registerWithItem(tree_ID_Suffix + "_door", new DoorBlock(BLOCK_SET, Blocks.OAK_DOOR.getSettings().mapColor(PlankColor)));
+            TRAPDOOR = registerWithItem(tree_ID_Suffix + "_trapdoor", new TrapdoorBlock(BLOCK_SET, Blocks.OAK_TRAPDOOR.getSettings().mapColor(PlankColor)));
+            PRESSURE_PLATE = registerWithItem(tree_ID_Suffix + "_pressure_plate", new PressurePlateBlock(BLOCK_SET, Blocks.OAK_PRESSURE_PLATE.getSettings().mapColor(PlankColor)));
+            BUTTON = registerWithItem(tree_ID_Suffix + "_button", new ButtonBlock(BLOCK_SET, 30, Blocks.OAK_BUTTON.getSettings()));
+            if(this.fallingLeaves)
+                LEAVES = registerWithItem(tree_ID_Suffix + "_leaves", new FallingLeavesBlock(FALLING_LEAVES_PARTICLE, Blocks.OAK_LEAVES.getSettings().mapColor(LeavesColor)));
+            else
+                LEAVES = registerWithItem(tree_ID_Suffix + "_leaves", new LeavesBlock(Blocks.OAK_LEAVES.getSettings().mapColor(LeavesColor)));
+            SAPLING = registerWithItem(tree_ID_Suffix + "_sapling", new SaplingBlock(Sapling_Generator, Blocks.OAK_SAPLING.getSettings()));
+            POTTED_SAPLING = register("potted_" + tree_ID_Suffix + "_sapling", createFlowerPot(SAPLING));
+        }
 
         SIGN_TEXTURE             = FieldsFables.id("entity/signs/" + tree_ID_Suffix);
         HANGING_SIGN_TEXTURE     = FieldsFables.id("entity/signs/hanging/" + tree_ID_Suffix);
@@ -232,10 +268,35 @@ public class EC_Tree
         CompostingChanceRegistry.INSTANCE.add(LEAVES , 0.3f);
     }
 
+    @Environment(EnvType.CLIENT)
+    public static class FallingLeavesParticle extends net.minecraft.client.particle.CherryLeavesParticle
+    {
+        public FallingLeavesParticle(ClientWorld world, double x, double y, double z, SpriteProvider spriteProvider)
+        {
+            super(world, x, y, z, spriteProvider);
+        }
+
+        @Environment(EnvType.CLIENT)
+        public static class Factory implements ParticleFactory<SimpleParticleType> {
+            private final SpriteProvider spriteProvider;
+
+            public Factory(SpriteProvider spriteProvider) {
+                this.spriteProvider = spriteProvider;
+            }
+
+            public Particle createParticle(SimpleParticleType simpleParticleType, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i) {
+                return new FallingLeavesParticle(clientWorld, d, e, f, /*g, h, i,*/ this.spriteProvider);
+            }
+        }
+    }
+
     public void loadClient()
     {
         BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(), POTTED_SAPLING, DOOR, SAPLING, LEAVES, TRAPDOOR);
         TerraformBoatClientHelper.registerModelLayers(BOAT_ID, false);
+
+        if(this.fallingLeaves)
+            ParticleFactoryRegistry.getInstance().register(FALLING_LEAVES_PARTICLE, FallingLeavesParticle.Factory::new);
     }
 
     public void loadDatagen()
@@ -448,32 +509,54 @@ public class EC_Tree
     }
 
     /* *********************  Constructors  ********************* */
-    public EC_Tree(String MOD_ID, String tree_ID_Suffix, String tree_Name, SaplingGenerator Sapling_Generator, MapColor LogColor, MapColor PlankColor, MapColor LeavesColor)
+    public EC_Tree(String MOD_ID, String tree_ID_Suffix, String tree_Name, boolean  flowerLeaves, boolean  fallingLeaves, SaplingGenerator Sapling_Generator, MapColor LogColor, MapColor PlankColor, MapColor LeavesColor)
     {
         this.MOD_ID            = MOD_ID;
         this.tree_ID_Suffix    = tree_ID_Suffix;
         this.tree_Name         = tree_Name;
+        this.flowerLeaves      = flowerLeaves;
+        this.fallingLeaves     = fallingLeaves;
         this.Sapling_Generator = Sapling_Generator;
         this.LogColor          = LogColor;
         this.PlankColor        = PlankColor;
         this.LeavesColor       = LeavesColor;
         this.flammableLeaves   = true;
         this.flammableWood     = true;
+
+        if(this.fallingLeaves)
+        {
+            FALLING_LEAVES_PARTICLE = FabricParticleTypes.simple();
+            Registry.register(Registries.PARTICLE_TYPE, id(tree_ID_Suffix + "_leaves"), FALLING_LEAVES_PARTICLE);
+        }
+        else
+            FALLING_LEAVES_PARTICLE = null;
+
         registerTree();
         //net.exoticcandy.world_gen_lib.Tree.list.Trees.trees.add(this);
     }
 
-    public EC_Tree(String MOD_ID, String tree_ID_Suffix, String tree_Name, SaplingGenerator Sapling_Generator, MapColor LogColor, MapColor PlankColor, MapColor LeavesColor, boolean flammableLeaves, boolean flammableWood)
+    public EC_Tree(String MOD_ID, String tree_ID_Suffix, String tree_Name, boolean  flowerLeaves, boolean  fallingLeaves, SaplingGenerator Sapling_Generator, MapColor LogColor, MapColor PlankColor, MapColor LeavesColor, boolean flammableLeaves, boolean flammableWood)
     {
         this.MOD_ID            = MOD_ID;
         this.tree_ID_Suffix    = tree_ID_Suffix;
         this.tree_Name         = tree_Name;
+        this.flowerLeaves      = flowerLeaves;
+        this.fallingLeaves     = fallingLeaves;
         this.Sapling_Generator = Sapling_Generator;
         this.LogColor          = LogColor;
         this.PlankColor        = PlankColor;
         this.LeavesColor       = LeavesColor;
         this.flammableLeaves   = flammableLeaves;
         this.flammableWood     = flammableWood;
+
+        if(this.fallingLeaves)
+        {
+            FALLING_LEAVES_PARTICLE = FabricParticleTypes.simple();
+            Registry.register(Registries.PARTICLE_TYPE, id(tree_ID_Suffix + "_leaves"), FALLING_LEAVES_PARTICLE);
+        }
+        else
+            FALLING_LEAVES_PARTICLE = null;
+
         registerTree();
         //net.exoticcandy.world_gen_lib.Tree.list.Trees.trees.add(this);
     }

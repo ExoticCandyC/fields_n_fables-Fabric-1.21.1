@@ -1,8 +1,8 @@
 package net.exoticcandy.fields_n_fables;
 
+import net.exoticcandy.fields_n_fables.data.TreeDecorators.WisteriaVineDecorator;
 import net.exoticcandy.fields_n_fables.init.BlockInit;
 import net.fabricmc.api.ModInitializer;
-
 import net.minecraft.util.Identifier;
 
 import org.slf4j.Logger;
@@ -17,6 +17,7 @@ public class FieldsFables implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		WisteriaVineDecorator.load();
 		//LOGGER.info("Hello Fabric world!");
 		BlockInit.load_generic();
 	}

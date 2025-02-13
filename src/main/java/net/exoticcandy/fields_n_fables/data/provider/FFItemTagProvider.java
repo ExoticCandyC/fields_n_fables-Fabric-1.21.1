@@ -2,13 +2,18 @@ package net.exoticcandy.fields_n_fables.data.provider;
 
 import net.exoticcandy.fields_n_fables.init.BlockInit;
 import net.exoticcandy.fields_n_fables.list.TagList;
+import net.exoticcandy.world_gen_lib.FlowerPetals.EC_Petal;
+import net.exoticcandy.world_gen_lib.FlowerPetals.list.Petals;
 import net.exoticcandy.world_gen_lib.Tree.EC_Tree;
 import net.exoticcandy.world_gen_lib.Tree.list.Trees;
+import net.exoticcandy.world_gen_lib.Vine.EC_Vine;
+import net.exoticcandy.world_gen_lib.Vine.list.Vines;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.item.Item;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.ItemTags;
 
 import java.util.concurrent.CompletableFuture;
@@ -40,6 +45,14 @@ public class FFItemTagProvider extends FabricTagProvider<Item> {
             getOrCreateTagBuilder(ItemTags.HANGING_SIGNS).add(tree.HANGING_SIGN_ITEM);
             getOrCreateTagBuilder(ItemTags.BOATS).add(tree.BOAT);
             getOrCreateTagBuilder(ItemTags.CHEST_BOATS).add(tree.CHEST_BOAT);
+            if(tree.flowerLeaves)
+            {
+                getOrCreateTagBuilder(ItemTags.FLOWERS).add(tree.LEAVES.asItem());
+            }
+        }
+        for(EC_Petal petal : Petals.petals)
+        {
+            getOrCreateTagBuilder(ItemTags.FLOWERS).add(petal.PETAL.asItem());
         }
     }
 }

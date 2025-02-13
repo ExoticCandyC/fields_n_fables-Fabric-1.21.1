@@ -1,9 +1,10 @@
-// 1.21.1	2025-02-12T07:31:31.6369434	Fields & Fables/Recipes
+// 1.21.1	2025-02-13T00:14:24.1748723	Fields & Fables/Recipes
 b5660dcb3704faf26cbc0f95c21892f760600982 data\fields_n_fables\recipe\wisteria_wood.json
 e76213eb2ba65e88d090b8902f73f97c7597e17d data\fields_n_fables\recipe\wisteria_fence.json
 039a63a5bfc3afee0ba897bc1ed953cb06d4a929 data\fields_n_fables\advancement\recipes\building_blocks\echo_wood.json
 3332c71102b9eaa31659e1a5949192c02cad3bb8 data\fields_n_fables\advancement\recipes\building_blocks\stripped_wisteria_wood.json
 cff1e4c630e1cd88c320359cb6754ceaeb9413f5 data\fields_n_fables\recipe\echo_sign.json
+4d2c5ba784c0ceea8d903fb8464632edd26c28a7 data\fields_n_fables\advancement\recipes\decorations\purple_dye.json
 d50f54e1139ea758a41bb0da1aaac350ca955b73 data\fields_n_fables\advancement\recipes\building_blocks\wisteria_trapdoor.json
 36962b2a17557e4bfb149012c4dd4dcbc7a029f8 data\fields_n_fables\advancement\recipes\building_blocks\stripped_echo_wood.json
 5e7a55aaebab83f66999b957b9a6669bd58b0ea8 data\fields_n_fables\advancement\recipes\building_blocks\wisteria_fence_gate.json
@@ -37,6 +38,7 @@ f4797dbdb1cc3c53d4731758762dfc062b30a845 data\fields_n_fables\advancement\recipe
 b9365ad3658a9c32c0aea1d4f265a7815b2d1d03 data\fields_n_fables\recipe\echo_stairs.json
 4579f2d10c3efd462847367eea85516fbe187b11 data\fields_n_fables\recipe\wisteria_trapdoor.json
 ff58bfab17f10d3e07b7736401c3f8114e350e5b data\fields_n_fables\recipe\wisteria_door.json
+e7fa82d74032cef13759d16800b81869fd66cdb6 data\fields_n_fables\recipe\purple_dye.json
 0a4dd61253f71ed66246743e177778d80ffb15f4 data\fields_n_fables\recipe\wisteria_button.json
 4a5168bff231e4849d29a6ca5f139f3ec57528fe data\fields_n_fables\advancement\recipes\transportation\wisteria_chest_boat.json
 b54bbb030016db510ba5ec5d31d322a80ff74b9d data\fields_n_fables\advancement\recipes\redstone\echo_button.json

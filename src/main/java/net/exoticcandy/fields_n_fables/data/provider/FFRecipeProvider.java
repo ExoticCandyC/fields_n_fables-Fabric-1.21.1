@@ -2,6 +2,8 @@ package net.exoticcandy.fields_n_fables.data.provider;
 
 import net.exoticcandy.fields_n_fables.init.BlockInit;
 import net.exoticcandy.fields_n_fables.list.TagList;
+import net.exoticcandy.world_gen_lib.FlowerPetals.EC_Petal;
+import net.exoticcandy.world_gen_lib.FlowerPetals.list.Petals;
 import net.exoticcandy.world_gen_lib.Tree.EC_Tree;
 import net.exoticcandy.world_gen_lib.Tree.list.Trees;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -29,10 +31,8 @@ public class FFRecipeProvider extends FabricRecipeProvider {
     @Override
     public void generate(RecipeExporter exporter) {
 
-        for(EC_Tree tree : Trees.trees)
-        {
-            tree.datagen_recipes(exporter);
-        }
+        for(EC_Tree   tree :  Trees.trees )  tree.datagen_recipes(exporter);
+        for(EC_Petal petal : Petals.petals) petal.datagen_recipes(exporter);
     }
 
     private static @NotNull String hasTag(@NotNull TagKey<Item> tag) {

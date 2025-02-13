@@ -11,14 +11,14 @@ public class Trees
 {
     public static List<EC_Tree> trees = new ArrayList<>();
 
-    public static void register_new_tree(String MOD_ID, String tree_ID_Suffix, String tree_Name, SaplingGenerator Sapling_Generator, MapColor LogColor, MapColor PlankColor, MapColor LeavesColor)
+    public static void register_new_tree(String MOD_ID, String tree_ID_Suffix, String tree_Name, boolean  flowerLeaves, boolean fallingLeaves, SaplingGenerator Sapling_Generator, MapColor LogColor, MapColor PlankColor, MapColor LeavesColor)
     {
-        trees.add(new EC_Tree(MOD_ID, tree_ID_Suffix, tree_Name, Sapling_Generator, LogColor, PlankColor, LeavesColor));
+        trees.add(new EC_Tree(MOD_ID, tree_ID_Suffix, tree_Name, flowerLeaves, fallingLeaves, Sapling_Generator, LogColor, PlankColor, LeavesColor));
     }
 
-    public static void register_new_tree(String MOD_ID, String tree_ID_Suffix, String tree_Name, SaplingGenerator Sapling_Generator, MapColor LogColor, MapColor PlankColor, MapColor LeavesColor, boolean flammableLeaves, boolean flammableWood)
+    public static void register_new_tree(String MOD_ID, String tree_ID_Suffix, String tree_Name, boolean  flowerLeaves, boolean fallingLeaves, SaplingGenerator Sapling_Generator, MapColor LogColor, MapColor PlankColor, MapColor LeavesColor, boolean flammableLeaves, boolean flammableWood)
     {
-        trees.add(new EC_Tree(MOD_ID, tree_ID_Suffix, tree_Name, Sapling_Generator, LogColor, PlankColor, LeavesColor, flammableLeaves, flammableWood));
+        trees.add(new EC_Tree(MOD_ID, tree_ID_Suffix, tree_Name, flowerLeaves, fallingLeaves, Sapling_Generator, LogColor, PlankColor, LeavesColor, flammableLeaves, flammableWood));
     }
 
     /*
